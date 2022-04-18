@@ -1,0 +1,10 @@
+{
+  "t5-base": {
+    "gramine-direct": [
+      {
+        "python-time": 55.268,
+        "whole-time": "55.700s"
+      }],
+    "gramine-sgx": [
+
+    ]
