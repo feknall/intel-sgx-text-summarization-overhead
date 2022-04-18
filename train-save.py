@@ -10,19 +10,19 @@ from transformers import TrainingArguments, Trainer
 from datasets import load_dataset
 from datasets import load_from_disk
 # from datasets import
-# billsum = load_dataset("billsum", split="ca_test", )
-# billsum.save_to_disk('./billsum')
-billsum = load_from_disk('./billsum')
+# billsum2 = load_dataset("billsum2", split="ca_test", )
+# billsum2.save_to_disk('./billsum2')
+billsum = load_from_disk('billsum2')
 
-# billsum = billsum.train_test_split(test_size=0.2)
+# billsum2 = billsum2.train_test_split(test_size=0.2)
 #
-# print(billsum["train"][0])
+# print(billsum2["train"][0])
 #
-# tokenizer = AutoTokenizer.from_pretrained("t5-small")
+# tokenizer = AutoTokenizer.from_pretrained("t5-small2")
 #
-# config = AutoConfig.from_pretrained("t5-small")
+# config = AutoConfig.from_pretrained("t5-small2")
 # model = TFAutoModelForSeq2SeqLM.from_config(config)
-# # model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-small")
+# # model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-small2")
 #
 # def tokenize_function(examples):
 #     return tokenizer(examples["text"], padding="max_length", truncation=True)
@@ -40,7 +40,7 @@ billsum = load_from_disk('./billsum')
 #     model_inputs["labels"] = labels["input_ids"]
 #     return model_inputs
 #
-# tokenized_billsum = billsum.map(preprocess_function, batched=True)
+# tokenized_billsum = billsum2.map(preprocess_function, batched=True)
 #
 # from transformers import DataCollatorForSeq2Seq
 #

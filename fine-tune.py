@@ -5,7 +5,7 @@ print("Start")
 
 from datasets import load_from_disk
 
-dataset = load_from_disk("./yelp_review_full")
+dataset = load_from_disk("yelp_review_full2")
 # print(f"{dataset.format}********")
 print(dataset["train"][100])
 

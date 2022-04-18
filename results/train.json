@@ -1,9 +1,9 @@
 {
-  "t5-base": {
+  "bert-base-cased": {
     "gramine-direct": [
       {
-        "python-time": 55.268,
-        "whole-time": "55.700s"
+        "python-time": "135.040s",
+        "whole-time": "2m15.459s"
       }],
     "gramine-sgx": [
 

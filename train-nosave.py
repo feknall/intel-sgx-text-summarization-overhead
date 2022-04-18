@@ -1,19 +1,16 @@
 from transformers import AutoConfig, TFAutoModelForSeq2SeqLM
 from transformers import AutoTokenizer
 
-from datasets import load_from_disk, load_dataset
+from datasets import load_from_disk
 
-# billsum = load_from_disk('billsum2')
-billsum = load_dataset("billsum")
-# billsum = billsum.train_test_split(test_size=0.2)
+billsum = load_from_disk('billsum2')
 
-tokenizer = AutoTokenizer.from_pretrained("t5-small")
+billsum = billsum.train_test_split(test_size=0.2)
 
-from transformers import AutoConfig, AutoModelForPreTraining
+tokenizer = AutoTokenizer.from_pretrained("t5-base")
 
-config = AutoConfig.from_pretrained("t5-small")
-# model = AutoModelForPreTraining.from_config(config)
-model = AutoModelForPreTraining.from_pretrained("t5-small")
+model = AutoConfig.from_pretrained("./t5-small-config")
+model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-base")
 
 def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True)
@@ -44,12 +41,12 @@ tf_train_set = tokenized_billsum["train"].to_tf_dataset(
     collate_fn=data_collator,
 )
 
-tf_test_set = tokenized_billsum["test"].to_tf_dataset(
-    columns=["attention_mask", "input_ids", "labels"],
-    shuffle=False,
-    batch_size=1,
-    collate_fn=data_collator,
-)
+# tf_test_set = tokenized_billsum["test"].to_tf_dataset(
+#     columns=["attention_mask", "input_ids", "labels"],
+#     shuffle=False,
+#     batch_size=1,
+#     collate_fn=data_collator,
+# )
 
 from transformers import AdamWeightDecay
 
@@ -58,4 +55,5 @@ optimizer = AdamWeightDecay(learning_rate=2e-5, weight_decay_rate=0.01)
 model.compile(optimizer=optimizer)
 
 print("Start Fit")
-model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=1, batch_size=1)
+model.fit(x=tf_train_set, epochs=1, batch_size=1)
+# model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=1, batch_size=1)
