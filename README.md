@@ -26,10 +26,12 @@ To be able to execute python codes without need to modify it for SGX compatibili
 3. To get an idea how Gramine helps use to train and evaluate a model, this article is suggested: https://gramine.readthedocs.io/en/latest/tutorials/pytorch/index.html
 
 ## Python, Hugging face, Transformers, other
-Hugging face is a platform that is publicly available for everyone. Companies or individuals publish their latest models (algorithms) in that platform. Other people can simply go through their platform, select a trained model, and evaluate anything that they want. For example, by using there is a model named `google/pegasus-xsum`. Google is the owner of this model, and is in implementation of `PEGASUS: A State-of-the-Art Model for Abstractive Text Summarization` (https://ai.googleblog.com/2020/06/pegasus-state-of-art-model-for.html). As the name of the model shows, it is trained on XSum (Extreme Summarization) dataset (https://paperswithcode.com/dataset/xsum).
-To be able to run these models, you need to have `Python 3.7+`. Additionally, these libraries are required: `tensorflow jax jaxlib transformers flax`. You can install them by either `conda` or `pip`.
+Hugging face is a platform that is publicly available for everyone. Companies or individuals publish their latest models (algorithms) in that platform. Other people can simply go through their platform, select a trained model, and evaluate anything that they want. To be able to run these models, you need to have `Python 3.7+`. Additionally, these libraries are required: `tensorflow jax jaxlib transformers flax`. You can install them by either `conda` or `pip`.
 This project is based on `conda`. `environment.yml` file can be used to generate an environment automatically with all required dependencies. Please note that some of these libraries are not required, however, by using `environment.yml` you can be sure that all libraries will be available.
-Therefore, we suggest using this command: `conda env create -f environment.yml`
+Therefore, we suggest using this command: 
+```
+conda env create -f environment.yml
+```
 
 ## How to Run
 Gramine Direct mode:
