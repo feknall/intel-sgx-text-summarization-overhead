@@ -1,19 +1,35 @@
-from datasets import load_from_disk, load_dataset
-from transformers import AutoConfig, AutoModelForPreTraining, AutoTokenizer
+import time
+start_time = time.time()
 
-billsum = load_dataset('billsum')
-# billsum = billsum.train_test_split(test_size=0.2)
+print("Start")
+
+from datasets import load_dataset
+from transformers import AutoConfig, AutoModelForPreTraining, AutoModelForSeq2SeqLM, Seq2SeqTrainingArguments, TFAutoModelForSeq2SeqLM,\
+    Seq2SeqTrainer
+from transformers import AutoTokenizer
+import numpy as np
+from datasets import load_metric
+from datasets import load_dataset
+from transformers import TrainingArguments, Trainer
+
+from datasets import load_dataset
+from datasets import load_from_disk
+
+billsum = load_from_disk('billsum')
+
+billsum = billsum.train_test_split(test_size=0.2)
+
+print(billsum["train"][0])
 
 tokenizer = AutoTokenizer.from_pretrained("t5-base")
-
 config = AutoConfig.from_pretrained("t5-base")
-model = AutoModelForPreTraining.from_config(config)
-
+model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-base")
 
 def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True)
 
 prefix = "summarize: "
+
 
 def preprocess_function(examples):
     inputs = [prefix + doc for doc in examples["text"]]
@@ -51,5 +67,8 @@ optimizer = AdamWeightDecay(learning_rate=2e-5, weight_decay_rate=0.01)
 
 model.compile(optimizer=optimizer)
 
-print("Start Fit")
-model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=1, batch_size=1)
+model.fit(x=tf_train_set, validation_data=tf_test_set, epochs=1)
+
+
+print("Done")
+print("--- %s seconds ---" % (time.time() - start_time))

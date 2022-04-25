@@ -1,8 +1,9 @@
-from transformers import TFAutoModelWithLMHead, AutoTokenizer
+import time
+start_time = time.time()
 
-from transformers import pipeline
+print("Start")
 
-summarizer = pipeline("summarization")
+from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 
 ARTICLE = """ New York (CNN)When Liana Barrientos was 23 years old, she got married in Westchester County, New York.
 A year later, she got married again in Westchester County, but to a different man and without divorcing her first husband.
@@ -23,14 +24,17 @@ Her eighth husband, Rashid Rajput, was deported in 2006 to his native Pakistan a
 If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.
 """
 
-print(summarizer(ARTICLE, max_length=130, min_length=30))
-
-model = TFAutoModelWithLMHead.from_pretrained("t5-base")
-tokenizer = AutoTokenizer.from_pretrained("t5-base")
+model = TFAutoModelForSeq2SeqLM.from_pretrained("knkarthick/MEETING_SUMMARY")
+tokenizer = AutoTokenizer.from_pretrained("knkarthick/MEETING_SUMMARY")
 
 # T5 uses a max_length of 512 so we cut the article to 512 tokens.
-inputs = tokenizer.encode("summarize: " + ARTICLE, return_tensors="tf", max_length=512)
-outputs = model.generate(inputs, max_length=150, min_length=40, length_penalty=2.0, num_beams=4, early_stopping=True)
-print("Output:\n" + 100 * '-')
-for i, beam_output in enumerate(outputs):
-  print("{}: {}".format(i, tokenizer.decode(beam_output, skip_special_tokens=True)))
+inputs = tokenizer("summarize: " + ARTICLE, return_tensors="tf", max_length=512)
+outputs = model.generate(
+    inputs["input_ids"], max_length=150, min_length=40, length_penalty=2.0, num_beams=4, early_stopping=True
+)
+
+print(tokenizer.decode(outputs[0]))
+
+
+print("Done")
+print("--- %s seconds ---" % (time.time() - start_time))

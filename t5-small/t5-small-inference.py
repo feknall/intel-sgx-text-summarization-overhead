@@ -1,3 +1,8 @@
+import time
+start_time = time.time()
+
+print("Start")
+
 from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 
 ARTICLE = """ New York (CNN)When Liana Barrientos was 23 years old, she got married in Westchester County, New York.
@@ -19,13 +24,17 @@ Her eighth husband, Rashid Rajput, was deported in 2006 to his native Pakistan a
 If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.
 """
 
-model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-base")
-tokenizer = AutoTokenizer.from_pretrained("t5-base")
+model = TFAutoModelForSeq2SeqLM.from_pretrained("t5-small")
+tokenizer = AutoTokenizer.from_pretrained("t5-small")
 
-# T5 uses a max_length of 512 so we cut the article to 512 tokens.
+
 inputs = tokenizer("summarize: " + ARTICLE, return_tensors="tf", max_length=512)
 outputs = model.generate(
     inputs["input_ids"], max_length=150, min_length=40, length_penalty=2.0, num_beams=4, early_stopping=True
 )
 
 print(tokenizer.decode(outputs[0]))
+
+
+print("Done")
+print("--- %s seconds ---" % (time.time() - start_time))
