@@ -1,7 +1,8 @@
 # intel-sgx-text-summarization-overhead
 A few notes:
-1. The only solution to reproduce our work is using 
-```Microsoft Azure Standard DC8 v2 (8 vcpus, 32 GiB memory), Ubuntu Server 20.04)
+1. The only way to reproduce our work is using 
+```
+Microsoft Azure Standard DC8 v2 (8 vcpus, 32 GiB memory), Ubuntu Server 20.04)
 ```
 Please consider that if you use different config, like lower memory, you need to change other configs as well like enclave size.
 3. It is impossible to use our work in a Jupyter Notebook since Gramine LibOS can run only one single .py file. Therefore, adding a Jupyter Notebook doesn't help you to understand or reproduce our work.
