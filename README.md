@@ -1,5 +1,5 @@
 # intel-sgx-text-summarization-overhead
-A few notes:
+### Important
 1. The only way to reproduce our work is using 
 ```
 Microsoft Azure Standard DC8 v2 (8 vcpus, 32 GiB memory), Ubuntu Server 20.04)
