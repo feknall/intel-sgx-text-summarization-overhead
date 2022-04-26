@@ -2,7 +2,7 @@
 ### Important
 1. The only way to reproduce our work is using 
 ```
-Microsoft Azure Standard DC8 v2 (8 vcpus, 32 GiB memory), Ubuntu Server 20.04)
+Microsoft Azure Standard DC8 v2 (8 vcpus, 32 GiB memory), Ubuntu Server 20.04
 ```
 Please consider that if you use different config, like lower memory, you need to change other configs as well like enclave size.
 
